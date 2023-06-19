@@ -6,6 +6,9 @@
 #define SALIR 3
 #define FALSE 0
 #define TRUE 1
+#define MASCARA_1_BYTE 7
+#define MASCARA_23_BITS_LSB 22
+#define MASCARA 1
 
 typedef unsigned char one_byte_var;
 
@@ -77,14 +80,14 @@ void conversor (void)
     scanf("%f", &numero);
     analisis.num = numero;
     printf("\n%f = 0x%X = 0b%d", numero, analisis.IEEE_754, analisis.IEEE_754.signo);
-    for (int i = 7; i >= 0; i--) printf("%d", ((analisis.IEEE_754.exponente >> i) & 1));
-    for (int i = 22; i >= 0; i--) printf("%d", ((analisis.IEEE_754.mantisa >> i) & 1));
+    for (int i = MASCARA_1_BYTE; i >= 0; i--) printf("%d", ((analisis.IEEE_754.exponente >> i) & MASCARA));
+    for (int i = MASCARA_23_BITS_LSB; i >= 0; i--) printf("%d", ((analisis.IEEE_754.mantisa >> i) & MASCARA));
     printf("\n\n--- Partes del IEEE 754 ---\n\n");
     printf("Signo = 0x%X = 0b%d\n", analisis.IEEE_754.signo, analisis.IEEE_754.signo);
     printf("Exponente = 0x%X = 0b", analisis.IEEE_754.exponente);
-    for (int i = 7; i >= 0; i--) printf("%d", ((analisis.IEEE_754.exponente >> i) & 1));
+    for (int i = MASCARA_1_BYTE; i >= 0; i--) printf("%d", ((analisis.IEEE_754.exponente >> i) & MASCARA));
     printf("\nMantisa = 0x%X = 0b", analisis.IEEE_754.mantisa);
-    for (int i = 22; i >= 0; i--) printf("%d", ((analisis.IEEE_754.mantisa >> i) & 1));
+    for (int i = MASCARA_23_BITS_LSB; i >= 0; i--) printf("%d", ((analisis.IEEE_754.mantisa >> i) & MASCARA));
 }
 
 float calculadora (int *p)
@@ -155,12 +158,12 @@ float calculadora (int *p)
 void imprimir (void)
 {
     printf("= 0x%X = 0b%d", analisis.IEEE_754, analisis.IEEE_754.signo);
-    for (int i = 7; i >= 0; i--) printf("%d", ((analisis.IEEE_754.exponente >> i) & 1));
-    for (int i = 22; i >= 0; i--) printf("%d", ((analisis.IEEE_754.mantisa >> i) & 1));
+    for (int i = MASCARA_1_BYTE; i >= 0; i--) printf("%d", ((analisis.IEEE_754.exponente >> i) & MASCARA));
+    for (int i = MASCARA_23_BITS_LSB; i >= 0; i--) printf("%d", ((analisis.IEEE_754.mantisa >> i) & MASCARA));
     printf("\n\n--- Partes del IEEE 754 ---\n\n");
     printf("Signo = 0x%X = 0b%d\n", analisis.IEEE_754.signo, analisis.IEEE_754.signo);
     printf("Exponente = 0x%X = 0b", analisis.IEEE_754.exponente);
-    for (int i = 7; i >= 0; i--) printf("%d", ((analisis.IEEE_754.exponente >> i) & 1));
+    for (int i = MASCARA_1_BYTE; i >= 0; i--) printf("%d", ((analisis.IEEE_754.exponente >> i) & MASCARA));
     printf("\nMantisa = 0x%X = 0b", analisis.IEEE_754.mantisa);
-    for (int i = 22; i >= 0; i--) printf("%d", ((analisis.IEEE_754.mantisa >> i) & 1));
+    for (int i = MASCARA_23_BITS_LSB; i >= 0; i--) printf("%d", ((analisis.IEEE_754.mantisa >> i) & MASCARA));
 }

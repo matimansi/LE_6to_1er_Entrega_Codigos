@@ -6,6 +6,10 @@
 #define SALIR 3
 #define FALSE 0
 #define TRUE 1
+#define CANT_FOR 3
+#define MASCARA_7_BITS_LSB 6
+#define MASCARA_1_BYTE 7
+#define MASCARA 1
 
 typedef unsigned char one_byte_var;
 
@@ -68,18 +72,26 @@ void conversor (void)
     printf("\nIngrese el numero de punto flotante\n>>> ");
     scanf("%f", &numero);
     printf("\n%f = 0x", numero);
-    for (i = 3; i >= 0; i--) printf("%.2X", puntero[i]);
+    for (i = CANT_FOR; i >= 0; i--) printf("%.2X", puntero[i]);
     printf(" = 0b");
-    for (i = 3; i >= 0; i--) for (j = 7; j >= 0; j--) printf("%d", ((puntero[i] >> j) & 1));
+    for (i = CANT_FOR; i >= 0; i--) for (j = MASCARA_1_BYTE; j >= 0; j--) printf("%d", ((puntero[i] >> j) & MASCARA));
     printf("\n\n--- Partes del IEEE 754 ---\n\n");
-    printf("Signo = 0b%d", ((puntero[3] >> 7) & 1));
+    printf("Signo = 0b%d", ((puntero[3] >> MASCARA_1_BYTE) & MASCARA));
     printf("\nExponente = 0b");
-    for (i = 6; i >= 0; i--) printf("%d", ((puntero[3] >> i) & 1));
-    printf("%d", ((puntero[2] >> 7) & 1));
+    for (i = MASCARA_7_BITS_LSB; i >= 0; i--) printf("%d", ((puntero[3] >> i) & MASCARA));
+    printf("%d", ((puntero[2] >> MASCARA_1_BYTE) & MASCARA));
     printf("\nMantisa = 0b");
-    for (i = 6; i >= 0; i--) printf("%d", ((puntero[2] >> i) & 1));
-    for (i = 7; i >= 0; i--) printf("%d", ((puntero[1] >> i) & 1));
-    for (i = 7; i >= 0; i--) printf("%d", ((puntero[0] >> i) & 1));
+    for (i = MASCARA_7_BITS_LSB; i >= 0; i--) printf("%d", ((puntero[2] >> i) & MASCARA));
+    for (i = MASCARA_1_BYTE; i >= 0; i--) printf("%d", ((puntero[1] >> i) & MASCARA));
+    for (i = MASCARA_1_BYTE; i >= 0; i--) printf("%d", ((puntero[0] >> i) & MASCARA));
+    printf("\n\n--- Direcciones de memoria ---\n\n");
+    if ((puntero + 3) > (puntero)) printf("Formato de guardado: Little Endian\n\n");
+    else printf("Formato de guardado: Big Endian\n\n");
+    printf("1er byte del float -> 0x%X\n", puntero + 3);
+    printf("2do byte del float -> 0x%X\n", puntero + 2);
+    printf("3er byte del float -> 0x%X\n", puntero + 1);
+    printf("4to byte del float -> 0x%X", puntero);
+    
 }
 
 float calculadora (int *p)
@@ -151,16 +163,23 @@ void imprimir (void)
 {
     int i, j;
     printf("= 0x", numero);
-    for (i = 3; i >= 0; i--) printf("%.2X", puntero[i]);
+    for (i = CANT_FOR; i >= 0; i--) printf("%.2X", puntero[i]);
     printf(" = 0b");
-    for (i = 3; i >= 0; i--) for (j = 7; j >= 0; j--) printf("%d", ((puntero[i] >> j) & 1));
+    for (i = CANT_FOR; i >= 0; i--) for (j = MASCARA_1_BYTE; j >= 0; j--) printf("%d", ((puntero[i] >> j) & MASCARA));
     printf("\n\n--- Partes del IEEE 754 ---\n\n");
-    printf("Signo = 0b%d", ((puntero[3] >> 7) & 1));
+    printf("Signo = 0b%d", ((puntero[3] >> MASCARA_1_BYTE) & MASCARA));
     printf("\nExponente = 0b");
-    for (i = 6; i >= 0; i--) printf("%d", ((puntero[3] >> i) & 1));
-    printf("%d", ((puntero[2] >> 7) & 1));
+    for (i = MASCARA_7_BITS_LSB; i >= 0; i--) printf("%d", ((puntero[3] >> i) & MASCARA));
+    printf("%d", ((puntero[2] >> MASCARA_1_BYTE) & MASCARA));
     printf("\nMantisa = 0b");
-    for (i = 6; i >= 0; i--) printf("%d", ((puntero[2] >> i) & 1));
-    for (i = 7; i >= 0; i--) printf("%d", ((puntero[1] >> i) & 1));
-    for (i = 7; i >= 0; i--) printf("%d", ((puntero[0] >> i) & 1));
+    for (i = MASCARA_7_BITS_LSB; i >= 0; i--) printf("%d", ((puntero[2] >> i) & MASCARA));
+    for (i = MASCARA_1_BYTE; i >= 0; i--) printf("%d", ((puntero[1] >> i) & MASCARA));
+    for (i = MASCARA_1_BYTE; i >= 0; i--) printf("%d", ((puntero[0] >> i) & MASCARA));
+    printf("\n\n--- Direcciones de memoria ---\n\n");
+    if ((puntero + 3) > (puntero)) printf("Formato de guardado: Little Endian\n\n");
+    else printf("Formato de guardado: Big Endian\n\n");
+    printf("1er byte del float -> 0x%X\n", puntero + 3);
+    printf("2do byte del float -> 0x%X\n", puntero + 2);
+    printf("3er byte del float -> 0x%X\n", puntero + 1);
+    printf("4to byte del float -> 0x%X", puntero);
 }
