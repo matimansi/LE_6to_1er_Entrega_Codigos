@@ -28,7 +28,7 @@ Estos 2 tipos se diferencia en la forma en que se produce la salida.
 
 - Las **diferentes salidas** son necesarias para el **cambio de estado**.
 
-<img src="Imagenes/Moore_Mealy.png">
+<img src="Imagen/Moore_Mealy.png">
 
 # Transiciones de estado en una MEF
 
