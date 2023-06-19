@@ -63,17 +63,17 @@ void debounceFSM_update()
     case BUTTON_FALLING:
       if (millis() - tiempo_actual > ANTI_REBOTE)
       {
-          if (digitalRead(BUTTON) == 0)
-          {
-            state = BUTTON_DOWN;
-            Serial.print("Button Pressed\nState -> BUTTON_DOWN\n");
-            buttonPressed();
-          }
-          else
-          {
-            state = BUTTON_UP;  
-            Serial.print("Return state to BUTTON_UP\n");
-          }
+        if (digitalRead(BUTTON) == 0)
+        {
+          state = BUTTON_DOWN;
+          Serial.print("Button Pressed\nState -> BUTTON_DOWN\n");
+          buttonPressed();
+        }
+        else
+        {
+          state = BUTTON_UP;  
+          Serial.print("Return state to BUTTON_UP\n");
+        }
       }
       break;
     case BUTTON_DOWN:
@@ -104,20 +104,12 @@ void debounceFSM_update()
 
 void buttonPressed()
 {
-<<<<<<< Updated upstream
-=======
-  //digitalWrite(LED_1, ~(digitalRead(LED_1)));
->>>>>>> Stashed changes
   if (digitalRead(LED_1) == 0) digitalWrite(LED_1, 1);
   else digitalWrite(LED_1, 0);
 }
 
 void buttonReleased()
 {
-<<<<<<< Updated upstream
-=======
-  //digitalWrite(LED_2, ~(digitalRead(LED_2)));
->>>>>>> Stashed changes
   if (digitalRead(LED_2) == 0) digitalWrite(LED_2, 1);
   else digitalWrite(LED_2, 0);
 }
