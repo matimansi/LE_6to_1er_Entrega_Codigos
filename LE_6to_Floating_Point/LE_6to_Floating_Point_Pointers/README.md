@@ -1,6 +1,6 @@
-_LE_6to_Floating_Point_
+_LE_6to_Floating_Point_Pointers_
 
-# **IEEE 754 - Punto Flotante**
+# **IEEE 754 - Punto Flotante - Pointers**
  
 ## ¿Que puedo hacer con el Programa?
 

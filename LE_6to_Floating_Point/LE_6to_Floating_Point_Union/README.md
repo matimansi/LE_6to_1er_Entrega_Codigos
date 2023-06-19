@@ -1,6 +1,6 @@
-_LE_6to_Floating_Point_
+_LE_6to_Floating_Point_Union_
 
-# **IEEE 754 - Punto Flotante**
+# **IEEE 754 - Punto Flotante - Union**
  
 ## ¿Que puedo hacer con el Programa?
 
