@@ -5,11 +5,10 @@
 #define BUTTON 2
 #define ANTI_REBOTE 40
 
-unsigned long tiempo_actual = 0;
+uint32_t tiempo_actual = 0;
 
 void debounceFSM_init();
 void debounceFSM_update();
-
 void buttonPressed();
 void buttonReleased();
 
@@ -28,11 +27,8 @@ void setup()
   pinMode(LED_1, OUTPUT);
   pinMode(LED_2, OUTPUT);
   pinMode(BUTTON, INPUT);
-  
   Serial.begin(9600);
-
   tiempo_actual = millis();
-  
   debounceFSM_init();
 }
 
@@ -60,6 +56,7 @@ void debounceFSM_update()
   switch (state)
   {
     case BUTTON_UP:
+      tiempo_actual = millis();
       if (digitalRead(BUTTON) == LOW)
       {
         state = BUTTON_FALLING;
@@ -67,8 +64,10 @@ void debounceFSM_update()
       }
       break;
     case BUTTON_FALLING:
+      Serial.println(millis() - tiempo_actual);
       if (millis() - tiempo_actual > ANTI_REBOTE)
       {
+        tiempo_actual = millis();
         if (digitalRead(BUTTON) == LOW)
         {
           state = BUTTON_DOWN;
@@ -83,6 +82,7 @@ void debounceFSM_update()
       }
       break;
     case BUTTON_DOWN:
+      tiempo_actual = millis();
       if (digitalRead(BUTTON) == HIGH) 
       {
         state = BUTTON_RAISING;
@@ -90,8 +90,10 @@ void debounceFSM_update()
       }
       break;
     case BUTTON_RAISING:
+      Serial.println(millis() - tiempo_actual);
       if (millis() - tiempo_actual > ANTI_REBOTE)
       {
+        tiempo_actual = millis();
         if (digitalRead(BUTTON) == HIGH)
         {
           state = BUTTON_UP;
@@ -101,7 +103,7 @@ void debounceFSM_update()
         else
         {
           state = BUTTON_DOWN;
-          Serial.print("Returne state to BUTTON_DOWN\n");
+          Serial.print("Return state to BUTTON_DOWN\n");
         }  
       }
       break;
