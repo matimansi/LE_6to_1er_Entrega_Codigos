@@ -43,10 +43,16 @@ void loop()
 
 void debounceFSM_init(void)
 {
-  if (digitalRead(BUTTON)) state = BUTTON_UP;
-  else state = BUTTON_DOWN;
-  if (state == BUTTON_UP) Serial.print("Init -> BUTTON_UP\n");
-  else Serial.print("Init -> BUTTON_DOWN\n");
+  if (digitalRead(BUTTON))
+  {
+    state = BUTTON_UP;
+    Serial.print("Init -> BUTTON_UP\n");
+  }
+  else
+  {
+    state = BUTTON_DOWN;
+    Serial.print("Init -> BUTTON_DOWN\n");
+  }
 }
 
 void debounceFSM_update()
