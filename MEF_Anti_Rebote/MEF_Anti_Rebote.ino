@@ -8,7 +8,7 @@
 unsigned long tiempo_actual = 0;
 
 void debounceFSM_init();
-void debounceFSM_update();  // llamar periódicamente
+void debounceFSM_update();
 
 void buttonPressed();
 void buttonReleased();
@@ -60,7 +60,7 @@ void debounceFSM_update()
   switch (state)
   {
     case BUTTON_UP:
-      if (digitalRead(BUTTON) == 0)
+      if (digitalRead(BUTTON) == LOW)
       {
         state = BUTTON_FALLING;
         Serial.print("State -> BUTTON_FALLING\n");
@@ -69,7 +69,7 @@ void debounceFSM_update()
     case BUTTON_FALLING:
       if (millis() - tiempo_actual > ANTI_REBOTE)
       {
-        if (digitalRead(BUTTON) == 0)
+        if (digitalRead(BUTTON) == LOW)
         {
           state = BUTTON_DOWN;
           Serial.print("Button Pressed\nState -> BUTTON_DOWN\n");
@@ -83,7 +83,7 @@ void debounceFSM_update()
       }
       break;
     case BUTTON_DOWN:
-      if (digitalRead(BUTTON) == 1) 
+      if (digitalRead(BUTTON) == HIGH) 
       {
         state = BUTTON_RAISING;
         Serial.print("State -> BUTTON_RAISING\n");  
@@ -92,7 +92,7 @@ void debounceFSM_update()
     case BUTTON_RAISING:
       if (millis() - tiempo_actual > ANTI_REBOTE)
       {
-        if (digitalRead(BUTTON) == 1)
+        if (digitalRead(BUTTON) == HIGH)
         {
           state = BUTTON_UP;
           Serial.print("Button Released\nState -> BUTTON_UP\n");
